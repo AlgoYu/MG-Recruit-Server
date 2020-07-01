@@ -9,6 +9,7 @@ import (
 
 func main() {
 	defer database.DB.Close()
+	defer database.RDB.Close()
 	r := gin.Default()
 	route.Route(r)
 	r.Run(":8888")

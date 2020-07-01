@@ -1,7 +1,9 @@
 package model
 
+import "machine-geek.cn/recruit-server/database"
+
 type Admin struct {
-	ID        uint   `gorm:"primary_key" json:"id"`
+	Id        uint   `gorm:"primary_key" json:"id"`
 	Name      string `gorm:"unique_index" json:"name"`
 	Password  string `gorm:"not null;char(60)" json:"password"`
 	Introduce string `gorm:"varchar(50)" json:"introduce"`
@@ -11,4 +13,16 @@ type Admin struct {
 
 func (admin *Admin) TableName() string {
 	return "admin"
+}
+
+func GetAllAdmin(name string) *Admin {
+	var admin Admin
+	database.DB.Where("name = ?", name).First(&admin)
+	return &admin
+}
+
+func GetAdminByName(name string) *Admin {
+	var admin Admin
+	database.DB.Where("name = ?", name).First(&admin)
+	return &admin
 }
